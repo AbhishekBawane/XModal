@@ -18,14 +18,16 @@ export default function App() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const usernameInput = document.getElementById("username");
     if (!username.trim()) {
       usernameInput.setCustomValidity("Username cannot be empty.");
       usernameInput.reportValidity();
       return;
-    } else usernameInput.setCustomValidity("");
+    }
+    usernameInput.setCustomValidity("");
+
 
     const emailInput = document.getElementById("email");
     if (!email.trim()) {
@@ -34,20 +36,24 @@ export default function App() {
       return;
     }
     if (!email.includes("@")) {
-      emailInput.setCustomValidity("Please include an '@' in the email address.");
+      emailInput.setCustomValidity(`Please include an '@' in the email address.'${email}' is missing @.`);
       emailInput.reportValidity();
       return;
-    } else emailInput.setCustomValidity("");
+    }
+    emailInput.setCustomValidity("");
+
 
     if (phone.length !== 10 || isNaN(phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return;
     }
 
+
     const today = new Date();
-    const entered = new Date(dob);
-    if (entered > today) {
-      alert("Invalid date of birth. Please enter a valid date.");
+    const enteredDate = new Date(dob);
+
+    if (enteredDate > today) {
+      alert("Invalid date of birth. Date of bith cannot be in the future.");
       return;
     }
 
@@ -55,28 +61,22 @@ export default function App() {
   };
 
   return (
-    <div className="modal">
-      <div
-        className={`modal-container ${showModal ? "blur-bg" : ""}`}
-        onClick={() => showModal && closeModal()} 
-      >
+    <>
+      {!showModal && (
+        <div className="initial-page">
+          <h1>User Details Modal</h1>
+          <button className="open-btn" onClick={() => setShowModal(true)}>
+            Open Form
+          </button>
+        </div>
+      )}
 
-        {!showModal && (
-          <div className="initial-page" onClick={(e) => e.stopPropagation()}>
-            <h1>User Details Modal</h1>
-            <button
-              className="open-btn"
-              onClick={() => setShowModal(true)}
-            >
-              Open Form
-            </button>
-          </div>
-        )}
-
-        {showModal && (
+      {/* MODAL OVERLAY */}
+      {showModal && (
+        <div className="modal" onClick={closeModal}>
           <form
             className="modal-content"
-            onClick={(e) => e.stopPropagation()} 
+            onClick={(e) => e.stopPropagation()}
             onSubmit={handleSubmit}
           >
             <h2>Fill Details</h2>
@@ -118,9 +118,8 @@ export default function App() {
               Submit
             </button>
           </form>
-        )}
-
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }

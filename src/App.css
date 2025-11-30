@@ -1,100 +1,104 @@
-/* FULL SCREEN WRAPPER */
-.modal {
-  width: 100vw;
-  height: 100vh;
-  background: white; /* Initial page is white */
-  overflow: hidden;
-  font-family: "Georgia", serif;
-}
-
-/* HOLDS initial page + overlay + modal */
-.modal-container {
-  width: 100%;
+body, html, #root {
+  margin: 0;
+  padding: 0;
   height: 100%;
-  position: relative;
- 
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* GREY BACKGROUND WHEN MODAL IS OPEN */
-.blur-bg {
-  background: rgba(0, 0, 0, 0.45);
-}
-
-/* INITIAL PAGE LAYOUT */
 .initial-page {
-  width: 100%;
-  height: 100%;
   text-align: center;
-  padding-top: 40px;
+  margin-top: 80px;
 }
 
 .initial-page h1 {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: bold;
   margin-bottom: 30px;
+  font-family: "Georgia", serif;
 }
 
-/* BLUE OPEN BUTTON */
 .open-btn {
   background: #0d6efd;
   color: white;
-  padding: 10px 35px;
-  font-size: 18px;
+  padding: 12px 40px;
   border-radius: 6px;
   border: none;
+  font-size: 18px;
   cursor: pointer;
 }
 
+.open-btn:hover {
+  background: #0b5ed7;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------------- */
 /* MODAL BOX */
+/* ---------------------- */
 .modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.25);
+  width: 450px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 25px rgba(0,0,0,0.4);
+  animation: fadeIn 0.2s ease-in;
 }
 
-/* MODAL HEADING */
 .modal-content h2 {
-  font-size: 32px;
-  font-weight: 700;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  font-family: "Georgia", serif;
 }
 
-/* LABEL STYLING */
 label {
-  display: block;
-  font-size: 18px;
-  margin-bottom: 8px;
-  margin-top: 12px;
   font-weight: 600;
-  text-align: center;
-}
-
-/* FORM INPUT STYLING */
-input {
-  width: 100%;
-  padding: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
- 
-}
-
-/* BLUE SUBMIT BUTTON */
-.submit-button {
-  background: #0d6efd;
-  color: white;
-  padding: 12px 40px;
-  border-radius: 8px;
-  border: none;
-  font-size: 18px;
   display: block;
-  margin: 20px auto 0;
+  margin-top: 15px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.modal-content input:focus {
+  border-color: #7f57ff;
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  background: #7f57ff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 17px;
+  margin-top: 25px;
   cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #6b42ff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
 }
