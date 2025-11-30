@@ -17,18 +17,16 @@ export default function App() {
     setDob("");
   };
 
-  const handleSubmit = () => {
-    // USERNAME → browser tooltip
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+
     const usernameInput = document.getElementById("username");
     if (!username.trim()) {
-      usernameInput.setCustomValidity("Please fill out this Filed.");
+      usernameInput.setCustomValidity("Username cannot be empty.");
       usernameInput.reportValidity();
       return;
-    } else {
-      usernameInput.setCustomValidity("");
-    }
+    } else usernameInput.setCustomValidity("");
 
-    // EMAIL → browser tooltip
     const emailInput = document.getElementById("email");
     if (!email.trim()) {
       emailInput.setCustomValidity("Email cannot be empty.");
@@ -36,24 +34,20 @@ export default function App() {
       return;
     }
     if (!email.includes("@")) {
-      emailInput.setCustomValidity(`Please include an '@' in the email address.'${email}' is missing an @`);
+      emailInput.setCustomValidity("Please include an '@' in the email address.");
       emailInput.reportValidity();
       return;
-    } else {
-      emailInput.setCustomValidity("");
-    }
+    } else emailInput.setCustomValidity("");
 
-    // PHONE → JS alert
     if (phone.length !== 10 || isNaN(phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return;
     }
 
-    // DOB → JS alert
     const today = new Date();
     const entered = new Date(dob);
     if (entered > today) {
-      alert("Invalid date of birth. Date of birth cannot be in the future.");
+      alert("Invalid date of birth. Please enter a valid date.");
       return;
     }
 
@@ -64,9 +58,9 @@ export default function App() {
     <div className="modal">
       <div
         className={`modal-container ${showModal ? "blur-bg" : ""}`}
-        onClick={() => showModal && closeModal()}
+        onClick={() => showModal && closeModal()} 
       >
-        {/* Initial page */}
+
         {!showModal && (
           <div className="initial-page" onClick={(e) => e.stopPropagation()}>
             <h1>User Details Modal</h1>
@@ -79,11 +73,11 @@ export default function App() {
           </div>
         )}
 
-        {/* Modal form */}
         {showModal && (
           <form
             className="modal-content"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()} 
+            onSubmit={handleSubmit}
           >
             <h2>Fill Details</h2>
 
@@ -120,11 +114,12 @@ export default function App() {
               onChange={(e) => setDob(e.target.value)}
             />
 
-            <button className="submit-button" onClick={handleSubmit}>
+            <button className="submit-button" type="submit">
               Submit
             </button>
           </form>
         )}
+
       </div>
     </div>
   );
